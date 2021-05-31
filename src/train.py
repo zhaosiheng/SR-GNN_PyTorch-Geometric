@@ -22,12 +22,12 @@ def forward(para, model, loader, device, writer, epoch, top_k=20, optimizer=None
     for i, batch in enumerate(loader):
         if train_flag:
             optimizer.zero_grad()
-        scores, h = model(batch.to(device))
+        scores, h, edges = model(batch.to(device))
         targets = batch.y - 1
         loss = model.loss_function(scores, targets)
 
         if para.task_node:
-            loss += model.loss_nodes(h, batch.edge_index)
+            loss += model.loss_nodes(h, edges)
         if train_flag:
             loss.backward()
             optimizer.step()
