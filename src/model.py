@@ -71,10 +71,10 @@ class GNNModel(nn.Module):
   
         return self.e2s(hidden2, self.embedding, batch), hidden2, edge_index
 
-    def loss_nodes(self, h, edges):
+    def loss_nodes(self, h, edges, device):
         m1 = torch.matmul(h,h.transpose(0,1))
         row,col = edges
-        tmp = torch.ones(len(h),len(h))*(-1)
+        tmp = torch.ones(len(h),len(h)).to(device)*(-1)
         tmp[row,col] = 1
         m1 = (m1 * tmp).sigmoid().log()
         mask = torch.ones(len(h),len(h))
