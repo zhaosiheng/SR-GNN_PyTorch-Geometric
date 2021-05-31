@@ -69,7 +69,7 @@ class GNNModel(nn.Module):
         hidden = self.gated(embedding, edge_index)
         hidden2 = F.relu(hidden)
   
-        return self.e2s(hidden2, self.embedding, batch), hidden2
+        return self.e2s(hidden2, self.embedding, batch), hidden2, edge_index
 
     def loss_nodes(self, h, edges):
         m1 = torch.matmul(h,h.transpose(0,1))
