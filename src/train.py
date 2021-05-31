@@ -26,7 +26,7 @@ def forward(para, model, loader, device, writer, epoch, top_k=20, optimizer=None
         targets = batch.y - 1
         loss = model.loss_function(scores, targets)
 
-        if para.auxiliary_nodes:
+        if para.task_node:
             loss += model.loss_nodes(h, batch.edge_index)
         if train_flag:
             loss.backward()
