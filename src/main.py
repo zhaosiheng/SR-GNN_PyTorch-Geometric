@@ -30,8 +30,8 @@ parser.add_argument('--lr_dc', type=float, default=0.1, help='learning rate deca
 parser.add_argument('--lr_dc_step', type=int, default=3, help='the number of steps after which the learning rate decay')
 parser.add_argument('--l2', type=float, default=1e-5, help='l2 penalty')  # [0.001, 0.0005, 0.0001, 0.00005, 0.00001]
 parser.add_argument('--top_k', type=int, default=20, help='top K indicator for evaluation')
-parser.add_argument('--task_node', type=bool, default=False, help='top K indicator for evaluation')
-parser.add_argument('--task_graph', type=bool, default=False, help='top K indicator for evaluation')
+parser.add_argument('--task_node', type=bool, default=False)
+parser.add_argument('--task_graph', type=bool, default=False)
 opt = parser.parse_args()
 logging.warning(opt)
 
