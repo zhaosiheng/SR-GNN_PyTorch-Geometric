@@ -56,21 +56,7 @@ class GNNModel(nn.Module):
         self.e2s = Embedding2Score(self.hidden_size)
         self.loss_function = nn.CrossEntropyLoss()
         self.reset_parameters()
-        
-     def loss_nodes(self, h, edges):
-        m1 = torch.matmul(h,h.transpose(0,1))
-        row,col = edges
-
-        tmp = torch.ones(len(h),len(h))*(-1)
-        tmp[row,col] = 1
-        m1 = (m1 * tmp).sigmoid().log()
-    
-        mask = torch.ones(len(h),len(h))
-        mask[row,col] = 0
-        neg = (m1 * mask)
-        pos = m1[row,col]
-        return pos.sum(0)*(-1) - neg.reshape((neg.numel(),)).sum(0)
-           
+                  
     def reset_parameters(self):
         stdv = 1.0 / math.sqrt(self.hidden_size)
         for weight in self.parameters():
@@ -84,3 +70,15 @@ class GNNModel(nn.Module):
         hidden2 = F.relu(hidden)
   
         return self.e2s(hidden2, self.embedding, batch), hidden2
+
+    def loss_nodes(self, h, edges):
+        m1 = torch.matmul(h,h.transpose(0,1))
+        row,col = edges
+        tmp = torch.ones(len(h),len(h))*(-1)
+        tmp[row,col] = 1
+        m1 = (m1 * tmp).sigmoid().log()
+        mask = torch.ones(len(h),len(h))
+        mask[row,col] = 0
+        neg = (m1 * mask)
+        pos = m1[row,col]
+        return pos.sum(0)*(-1) - neg.reshape((neg.numel(),)).sum(0)
