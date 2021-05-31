@@ -77,7 +77,7 @@ class GNNModel(nn.Module):
         tmp = torch.ones(len(h),len(h)).to(device)*(-1)
         tmp[row,col] = 1
         m1 = (m1 * tmp).sigmoid().log()
-        mask = torch.ones(len(h),len(h))
+        mask = torch.ones(len(h),len(h)).to(device)
         mask[row,col] = 0
         neg = (m1 * mask)
         pos = m1[row,col]
