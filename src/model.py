@@ -57,7 +57,7 @@ class GNNModel(nn.Module):
         self.loss_function = nn.CrossEntropyLoss()
         self.reset_parameters()
         
-     def loss_nodes(h,edges):
+     def loss_nodes(self, h, edges):
         m1 = torch.matmul(h,h.transpose(0,1))
         row,col = edges
 
