@@ -25,7 +25,8 @@ def forward(para, model, loader, device, writer, epoch, top_k=20, optimizer=None
         scores, h, edges = model(batch.to(device))
         targets = batch.y - 1
         loss = model.loss_function(scores, targets)
-
+        print(model.loss_nodes(h, edges, device))
+        
         if para.task_node:
             loss += model.loss_nodes(h, edges, device)
         if train_flag:
