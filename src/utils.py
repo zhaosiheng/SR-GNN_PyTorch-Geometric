@@ -1,4 +1,4 @@
-import netorkx as nx
+import networkx as nx
 import numpy as np
 import torch
 import torch.nn as nn
@@ -12,7 +12,10 @@ class NodeDistance:
         """
         
         G = nx.DiGraph()
-        self.graph = G.add_edges_from(np.transpose(edges))
+
+        G.add_edges_from(np.transpose(edges))
+        self.graph = G
+        print(len(self.graph))
         self.nclass = nclass
 
     def get_label(self):
@@ -29,7 +32,7 @@ class NodeDistance:
         return torch.LongTensor(distance) - 1
 
      
-class PairwiseDistance(Base):
+class PairwiseDistance():
 
     def __init__(self, n_node, edges, nhid, device, regression=False):
         self.n_node = n_node
@@ -80,6 +83,4 @@ class PairwiseDistance(Base):
             node_pairs.append(tmp[indices])
         node_pairs = np.array(node_pairs).reshape(-1, 2).transpose()
         return node_pairs[0], node_pairs[1]
-
-
 
