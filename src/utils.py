@@ -6,7 +6,7 @@ import torch.nn.functional as F
 
 class NodeDistance:
 
-    def __init__(self, n_node, edges, nclass=4):
+    def __init__(self, edges, nclass=4):
         """
         :param graph: Networkx Graph.
         """
@@ -34,8 +34,8 @@ class NodeDistance:
      
 class PairwiseDistance():
 
-    def __init__(self, n_node, edges, nhid, device, regression=False):
-        self.n_node = n_node
+    def __init__(self,  edges, nhid, device, regression=False):
+        
         self.edges = edges
         self.device = device
 
@@ -57,7 +57,7 @@ class PairwiseDistance():
 
     def classification_loss(self, embeddings):
         if self.pseudo_labels is None:
-            self.agent = NodeDistance(self.n_node, self.edges, nclass=self.nclass)
+            self.agent = NodeDistance(self.edges, nclass=self.nclass)
             self.pseudo_labels = self.agent.get_label().to(self.device)
 
         # embeddings = F.dropout(embeddings, 0, training=True)
