@@ -53,7 +53,7 @@ class PairwiseDistance():
         if self.regression:
             return self.regression_loss(embeddings)
         else:
-            return self.classification_loss(embeddings)
+            return self.classification_loss(embeddings, edges)
 
     def classification_loss(self, embeddings, edges):
         if self.pseudo_labels is None:
