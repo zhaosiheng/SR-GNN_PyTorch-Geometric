@@ -34,9 +34,9 @@ class NodeDistance:
      
 class PairwiseDistance():
 
-    def __init__(self,  edges, nhid, device, regression=False):
+    def __init__(self,  nhid, device, regression=False):
         
-        self.edges = edges
+        
         self.device = device
 
         self.regression = regression
@@ -49,15 +49,15 @@ class PairwiseDistance():
         self.pseudo_labels = None
 
 
-    def make_loss(self, embeddings):
+    def make_loss(self, embeddings, edges):
         if self.regression:
             return self.regression_loss(embeddings)
         else:
             return self.classification_loss(embeddings)
 
-    def classification_loss(self, embeddings):
+    def classification_loss(self, embeddings, edges):
         if self.pseudo_labels is None:
-            self.agent = NodeDistance(self.edges, nclass=self.nclass)
+            self.agent = NodeDistance(edges, nclass=self.nclass)
             self.pseudo_labels = self.agent.get_label().to(self.device)
 
         # embeddings = F.dropout(embeddings, 0, training=True)
