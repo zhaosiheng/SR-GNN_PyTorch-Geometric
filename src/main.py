@@ -63,7 +63,7 @@ def main():
     model = GNNModel(hidden_size=opt.hidden_size, n_node=n_node).to(device)
     
     if opt.ssl is not None:
-        ssl = eval(opt.ssl)(sampler.adj, sampler.features, idx_train=idx_train, nhid=args.hidden, device=device)
+        ssl = eval(opt.ssl)(nhid=opt.hidden_size, device=device)
     optimizer = torch.optim.Adam(list(model.parameters()) + list(ssl_agent.linear.parameters()), lr=opt.lr, weight_decay=opt.l2)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=opt.lr_dc_step, gamma=opt.lr_dc)
 
