@@ -7,9 +7,9 @@ Created on 5/4/2019
 
 import numpy as np
 import logging
+from utils import *
 
-
-def forward(para, model, loader, device, writer, epoch, top_k=20, optimizer=None, train_flag=True):
+def forward(ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer=None, train_flag=True):
     if train_flag:
         model.train()
     else:
@@ -29,6 +29,8 @@ def forward(para, model, loader, device, writer, epoch, top_k=20, optimizer=None
         
         if para.task_node:
             loss += model.loss_nodes(h, edges, device)
+        if para.ssl_task:
+            loss += ssl.make_loss(h)
         if train_flag:
             loss.backward()
             optimizer.step()
