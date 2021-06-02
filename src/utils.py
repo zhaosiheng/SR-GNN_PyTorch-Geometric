@@ -11,7 +11,8 @@ class NodeDistance:
         :param graph: Networkx Graph.
         """
         
-        self.graph = nx.from_scipy_sparse_matrix(adj)
+        G = nx.DiGraph()
+        self.graph = G.add_edges_from(np.transpose(edges))
         self.nclass = nclass
 
     def get_label(self):
