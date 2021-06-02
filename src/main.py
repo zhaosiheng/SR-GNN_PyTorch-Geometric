@@ -7,6 +7,7 @@ Created on 4/4/2019
 import os
 import argparse
 import logging
+from utils import *
 from tqdm import tqdm
 from dataset import MultiSessionsGraph
 from torch_geometric.data import DataLoader
@@ -32,6 +33,7 @@ parser.add_argument('--l2', type=float, default=1e-5, help='l2 penalty')  # [0.0
 parser.add_argument('--top_k', type=int, default=20, help='top K indicator for evaluation')
 parser.add_argument('--task_node', type=bool, default=False)
 parser.add_argument('--task_graph', type=bool, default=False)
+parser.add_augument('--ssl_task',type=str,default=None)
 opt = parser.parse_args()
 logging.warning(opt)
 
@@ -59,7 +61,9 @@ def main():
         n_node = 309
 
     model = GNNModel(hidden_size=opt.hidden_size, n_node=n_node).to(device)
-
+    
+    if opt.ssl is not None:
+        ssl = eval(opt.ssl)(sampler.adj, sampler.features, idx_train=idx_train, nhid=args.hidden, device=device)
     optimizer = torch.optim.Adam(model.parameters(), lr=opt.lr, weight_decay=opt.l2)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=opt.lr_dc_step, gamma=opt.lr_dc)
 
