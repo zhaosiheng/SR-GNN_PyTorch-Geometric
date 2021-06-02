@@ -71,9 +71,9 @@ def main():
     
     for epoch in tqdm(range(opt.epoch)):
         scheduler.step()
-        forward(opt, model, train_loader, device, writer, epoch, top_k=opt.top_k, optimizer=optimizer, train_flag=True)
+        forward(ssl, opt, model, train_loader, device, writer, epoch, top_k=opt.top_k, optimizer=optimizer, train_flag=True)
         with torch.no_grad():
-            forward(opt, model, test_loader, device, writer, epoch, top_k=opt.top_k, train_flag=False)
+            forward(ssl, opt, model, test_loader, device, writer, epoch, top_k=opt.top_k, train_flag=False)
 
 
 if __name__ == '__main__':
