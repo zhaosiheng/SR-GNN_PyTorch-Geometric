@@ -3,17 +3,18 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torch_geometric.utils
 
 class NodeDistance:
 
-    def __init__(self, edges, nclass=4):
+    def __init__(self, data, nclass=4):
         """
         :param graph: Networkx Graph.
         """
         
-        G = nx.DiGraph()
-
-        G.add_edges_from(np.transpose(edges.cpu()))
+        
+        G = to_networkx(data)
+        
         self.graph = G
         
         self.nclass = nclass
@@ -49,15 +50,15 @@ class PairwiseDistance():
         self.pseudo_labels = None
 
 
-    def make_loss(self, embeddings, edges):
+    def make_loss(self, embeddings, data):
         if self.regression:
             return self.regression_loss(embeddings)
         else:
-            return self.classification_loss(embeddings, edges)
+            return self.classification_loss(embeddings, data)
 
-    def classification_loss(self, embeddings, edges):
+    def classification_loss(self, embeddings, data):
         
-        agent = NodeDistance(edges, nclass=self.nclass)
+        agent = NodeDistance(data, nclass=self.nclass)
         self.pseudo_labels = agent.get_label().to(self.device)
 
         # embeddings = F.dropout(embeddings, 0, training=True)
