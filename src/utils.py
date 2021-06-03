@@ -66,8 +66,8 @@ class PairwiseDistance():
         embeddings0 = embeddings[node_pairs[0]]
         embeddings1 = embeddings[node_pairs[1]]
 
-        embeddings = self.linear(torch.abs(embeddings0 - embeddings1))
-        output = F.log_softmax(embeddings, dim=1)
+        h = self.linear(torch.abs(embeddings0 - embeddings1))
+        output = F.log_softmax(h, dim=1)
         loss = F.nll_loss(output, self.pseudo_labels[node_pairs])
         
         # from metric import accuracy
