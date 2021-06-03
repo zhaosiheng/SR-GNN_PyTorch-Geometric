@@ -15,7 +15,7 @@ class NodeDistance:
 
         G.add_edges_from(np.transpose(edges))
         self.graph = G
-        print(len(self.graph))
+        
         self.nclass = nclass
 
     def get_label(self):
@@ -57,11 +57,11 @@ class PairwiseDistance():
 
     def classification_loss(self, embeddings, edges):
         if self.pseudo_labels is None:
-            self.agent = NodeDistance(edges, nclass=self.nclass)
-            self.pseudo_labels = self.agent.get_label().to(self.device)
+            agent = NodeDistance(edges, nclass=self.nclass)
+            self.pseudo_labels = agent.get_label().to(self.device)
 
         # embeddings = F.dropout(embeddings, 0, training=True)
-        self.node_pairs = self.sample(self.agent.distance)
+        self.node_pairs = self.sample(agent.distance)
         node_pairs = self.node_pairs
         embeddings0 = embeddings[node_pairs[0]]
         embeddings1 = embeddings[node_pairs[1]]
