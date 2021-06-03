@@ -13,7 +13,7 @@ class NodeDistance:
         
         G = nx.DiGraph()
 
-        G.add_edges_from(np.transpose(edges))
+        G.add_edges_from(np.transpose(edges.cpu())
         self.graph = G
         
         self.nclass = nclass
