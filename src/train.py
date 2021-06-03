@@ -25,6 +25,7 @@ def forward(ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer
         scores, h, edges = model(batch.to(device))
         targets = batch.y - 1
         loss = model.loss_function(scores, targets)
+        print(dir(batch))
         print('batch.x',batch.x.shape)
         
         if para.task_node:
