@@ -56,9 +56,9 @@ class PairwiseDistance():
             return self.classification_loss(embeddings, edges)
 
     def classification_loss(self, embeddings, edges):
-        if self.pseudo_labels is None:
-            agent = NodeDistance(edges, nclass=self.nclass)
-            self.pseudo_labels = agent.get_label().to(self.device)
+        
+        agent = NodeDistance(edges, nclass=self.nclass)
+        self.pseudo_labels = agent.get_label().to(self.device)
 
         # embeddings = F.dropout(embeddings, 0, training=True)
         self.node_pairs = self.sample(agent.distance)
