@@ -65,7 +65,6 @@ class PairwiseDistance():
         self.node_pairs = self.sample(agent.distance)
         node_pairs = self.node_pairs
         
-        print('sample',node_pairs.shape)
         embeddings0 = embeddings[node_pairs[0]]
         embeddings1 = embeddings[node_pairs[1]]
 
@@ -85,6 +84,8 @@ class PairwiseDistance():
        #     indices = np.random.choice(np.arange(len(tmp)), k, replace=False)
             indices = np.random.choice(np.arange(len(tmp)), int(len(tmp)/2), replace=False)
             node_pairs.append(tmp[indices])
+        print('before',node_pairs)
+        print(len(node_pairs[0]))
         node_pairs = np.array(node_pairs).reshape(-1, 2).transpose()
         return node_pairs[0], node_pairs[1]
 
