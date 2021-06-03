@@ -34,12 +34,15 @@ parser.add_argument('--top_k', type=int, default=20, help='top K indicator for e
 parser.add_argument('--task_node', type=bool, default=False)
 parser.add_argument('--task_graph', type=bool, default=False)
 parser.add_argument('--ssl_task',type=str,default=None)
+parser.add_argument('--device',type=str,default=None)
 opt = parser.parse_args()
 logging.warning(opt)
 
 
 def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if opt.device is not None:
+        device = torch.device(opt.device)
 
     cur_dir = os.getcwd()
     train_dataset = MultiSessionsGraph(cur_dir + '/../datasets/' + opt.dataset, phrase='train')
