@@ -64,7 +64,7 @@ class PairwiseDistance():
         self.node_pairs = self.sample(agent.distance)
         node_pairs = self.node_pairs
         print(embeddings.shape)
-        print(node_pairs)
+        print(agent.graph.number_of_nodes())
         embeddings0 = embeddings[node_pairs[0]]
         embeddings1 = embeddings[node_pairs[1]]
 
