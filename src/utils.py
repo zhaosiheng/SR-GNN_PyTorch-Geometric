@@ -82,11 +82,12 @@ class PairwiseDistance():
         for i in range(1, labels.max()+1):
             tmp = np.array(np.where(labels==i)).transpose()
        #     indices = np.random.choice(np.arange(len(tmp)), k, replace=False)
-            indices = np.random.choice(np.arange(len(tmp)), int(len(tmp)/50), replace=False)
+            indices = np.random.choice(np.arange(len(tmp)), 3, replace=False)
             node_pairs.append(tmp[indices])
-            print(node_pairs)
-        
+        mine = np.vstack(bode_pairs)
         node_pairs = np.array(node_pairs,dtype=object).reshape(-1, 2).transpose()
+        print('mine',mine.shape)
+        print('node_pairs',node_pairs.shape)
         
         return node_pairs[0], node_pairs[1]
 
