@@ -29,8 +29,8 @@ def forward(ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer
         if para.task_node:
             loss += model.loss_nodes(h, edges, device)
         if para.ssl_task:
-            loss += ssl.make_loss(h, batch)
-        if train_flag:
+            loss += ssl.make_loss(h, batch)*ssl.lamda
+        if train_flag:ssl.lamda
             loss.backward()
             optimizer.step()
             writer.add_scalar('loss/train_batch_loss', loss.item(), epoch * updates_per_epoch + i)
