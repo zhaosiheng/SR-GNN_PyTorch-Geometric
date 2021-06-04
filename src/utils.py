@@ -84,7 +84,7 @@ class PairwiseDistance():
        #     indices = np.random.choice(np.arange(len(tmp)), k, replace=False)
             indices = np.random.choice(np.arange(len(tmp)), 3, replace=False)
             node_pairs.append(tmp[indices])
-        mine = np.vstack(bode_pairs)
+        mine = np.vstack(node_pairs)
         node_pairs = np.array(node_pairs,dtype=object).reshape(-1, 2).transpose()
         print('mine',mine.shape)
         print('node_pairs',node_pairs.shape)
