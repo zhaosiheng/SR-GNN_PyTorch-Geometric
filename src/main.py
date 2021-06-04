@@ -34,6 +34,7 @@ parser.add_argument('--top_k', type=int, default=20, help='top K indicator for e
 parser.add_argument('--task_node', type=bool, default=False)
 parser.add_argument('--task_graph', type=bool, default=False)
 parser.add_argument('--ssl_task',type=str,default=None)
+parser.add_argument('--lamda',type=float,default=1.0)
 parser.add_argument('--device',type=str,default=None)
 opt = parser.parse_args()
 logging.warning(opt)
