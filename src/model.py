@@ -54,7 +54,7 @@ class GNNModel(nn.Module):
         self.embedding = nn.Embedding(self.n_node, self.hidden_size)
         if gnn_model=='ggnn':
             self.gated = GatedGraphConv(self.hidden_size, num_layers=1)
-        if gnn_nodel=='gat':
+        if gnn_model=='gat':
             self.gated = GATConv(1, self.hidden_size, headS=3)
         self.e2s = Embedding2Score(self.hidden_size)
         self.loss_function = nn.CrossEntropyLoss()
