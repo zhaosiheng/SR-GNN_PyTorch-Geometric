@@ -36,6 +36,7 @@ parser.add_argument('--task_graph', type=bool, default=False)
 parser.add_argument('--ssl_task',type=str,default=None)
 parser.add_argument('--lamda',type=float,default=1.0)
 parser.add_argument('--device',type=str,default=None)
+parser.add_argument('--gnn_model',type=str,default='ggnn')
 opt = parser.parse_args()
 logging.warning(opt)
 
