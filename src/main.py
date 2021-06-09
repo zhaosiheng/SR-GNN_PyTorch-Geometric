@@ -71,7 +71,7 @@ def main():
         optimizer = torch.optim.Adam(list(model.parameters()) + list(ssl.linear.parameters()), lr=opt.lr, weight_decay=opt.l2)
     else:
         ssl = None
-        optimizer = torch.optim.Adam(list(model.parameters()) , lr=opt.lr, weight_decay=opt.l2)
+        optimizer = torch.optim.Adam(model.parameters() , lr=opt.lr, weight_decay=opt.l2)
     
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=opt.lr_dc_step, gamma=opt.lr_dc)
 
