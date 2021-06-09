@@ -65,7 +65,7 @@ def main():
     else:
         n_node = 309
 
-    model = GNNModel(hidden_size=opt.hidden_size, n_node=n_node).to(device)
+    model = GNNModel(hidden_size=opt.hidden_size, n_node=n_node, opt.gnn_model).to(device)
     
     if opt.ssl_task is not None:
         ssl = eval(opt.ssl_task)(nhid=opt.hidden_size, device=device)
