@@ -39,7 +39,7 @@ class Embedding2Score(nn.Module):
         # Eq(8)
         z_i_hat = torch.mm(s_h, all_item_embedding.weight.transpose(1, 0))
         
-        return z_i_hat
+        return z_i_hat, s_h
 
 
 class GNNModel(nn.Module):
