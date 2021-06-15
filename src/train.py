@@ -22,10 +22,11 @@ def forward(ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer
     for i, batch in enumerate(loader):
         if train_flag:
             optimizer.zero_grad()
-        scores, h, edges = model(batch.to(device))
+        scores, s_h, h, edges = model(batch.to(device))
         targets = batch.y - 1
         loss = model.loss_function(scores, targets)
-
+        print(s_h.shape)
+        
         if para.task_node:
             loss += model.loss_nodes(h, edges, device)
         if para.ssl_task:
