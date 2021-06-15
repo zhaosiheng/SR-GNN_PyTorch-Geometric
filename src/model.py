@@ -35,11 +35,11 @@ class Embedding2Score(nn.Module):
         # Eq(7)
         v_n = tuple(nodes[-1].view(1, -1) for nodes in v_i)
         s_h = self.W_3(torch.cat((torch.cat(v_n, dim=0), torch.cat(s_g, dim=0)), dim=1))
-        
+        print(s_h.shape)
         # Eq(8)
         z_i_hat = torch.mm(s_h, all_item_embedding.weight.transpose(1, 0))
         
-        return z_i_hat, s_h
+        return z_i_hat
 
 
 class GNNModel(nn.Module):
