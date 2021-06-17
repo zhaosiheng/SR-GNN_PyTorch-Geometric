@@ -69,7 +69,6 @@ class GNNModel(nn.Module):
     def forward(self, data):
         x, edge_index, batch = data.x - 1, data.edge_index, data.batch
 
-        print(x.shape)
         #embedding = self.embedding(x).squeeze()
         hidden = self.gated(self.embedding.weight, self.full_graph)
         hidden = hidden[x].squeeze(1)
