@@ -53,7 +53,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=opt.batch_size, shuffle=False)
     
     all_edges = []
-    for batch in range(train_loader):
+    for i, batch in enumerate(train_loader):
         all_edges.append(batch.edge_index)
         print(batch.edge_index.shape)
     
