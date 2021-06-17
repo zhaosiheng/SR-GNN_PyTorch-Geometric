@@ -69,8 +69,10 @@ class GNNModel(nn.Module):
     def forward(self, data):
         x, edge_index, batch = data.x - 1, data.edge_index, data.batch
 
-        embedding = self.embedding(x).squeeze()
-        hidden = self.gated(embedding, edge_index)
+        print(x.shape)
+        #embedding = self.embedding(x).squeeze()
+        hidden = self.gated(self.embedding.weight, edge_index)
+        hidden = hidden[x]
         hidden2 = F.relu(hidden)
   
         return self.e2s(hidden2, self.embedding, batch), hidden2, edge_index
