@@ -55,7 +55,7 @@ def main():
     all_edges = []
     for i, batch in enumerate(train_loader):
         all_edges.append(batch.edge_index)
-        print(batch.edge_index.shape)
+    full_graph_edges = torch.cat(all_edges, dim=1)
     
     log_dir = cur_dir + '/../log/' + str(opt.dataset) + '/' + str(opt)
     if not os.path.exists(log_dir):
@@ -87,7 +87,7 @@ def main():
         scheduler.step()
         forward(ssl, opt, model, train_loader, device, writer, epoch, top_k=opt.top_k, optimizer=optimizer, train_flag=True)
         with torch.no_grad():
-            forward(ssl, opt, model, test_loader, device, writer, epoch, top_k=opt.top_k, train_flag=False)
+            forward(full_graph_edges, ssl, opt, model, test_loader, device, writer, epoch, top_k=opt.top_k, train_flag=False)
 
 
 if __name__ == '__main__':
