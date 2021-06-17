@@ -48,8 +48,9 @@ class GNNModel(nn.Module):
         hidden_size: the number of units in a hidden layer.
         n_node: the number of items in the whole item set for embedding layer.
     """
-    def __init__(self, hidden_size, n_node, gnn_model='ggnn'):
+    def __init__(self, full_graph_edges, hidden_size, n_node, gnn_model='ggnn'):
         super(GNNModel, self).__init__()
+        self.full_graph = full_graph_edges
         self.hidden_size, self.n_node = hidden_size, n_node
         self.embedding = nn.Embedding(self.n_node, self.hidden_size)
         if gnn_model=='ggnn':
