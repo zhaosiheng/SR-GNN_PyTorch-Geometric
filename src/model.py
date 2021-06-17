@@ -73,7 +73,7 @@ class GNNModel(nn.Module):
         #embedding = self.embedding(x).squeeze()
         hidden = self.gated(self.embedding.weight, edge_index)
         print(hidden.shape)
-        hidden = hidden[x]
+        hidden = hidden[x].squeeze(1)
         print(hidden.shape)
         hidden2 = F.relu(hidden)
         print(hidden2.shape)
