@@ -51,7 +51,12 @@ def main():
     train_loader = DataLoader(train_dataset, batch_size=opt.batch_size, shuffle=True)
     test_dataset = MultiSessionsGraph(cur_dir + '/../datasets/' + opt.dataset, phrase='test')
     test_loader = DataLoader(test_dataset, batch_size=opt.batch_size, shuffle=False)
-
+    
+    all_edges = []
+    for batch in range(train_loader):
+        all_edges.append(batch.edge_index)
+        print(batch.edge_index.shape)
+    
     log_dir = cur_dir + '/../log/' + str(opt.dataset) + '/' + str(opt)
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
