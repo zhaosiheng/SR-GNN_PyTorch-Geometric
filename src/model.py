@@ -72,9 +72,11 @@ class GNNModel(nn.Module):
         print(x.shape)
         #embedding = self.embedding(x).squeeze()
         hidden = self.gated(self.embedding.weight, edge_index)
+        print(hidden.shape)
         hidden = hidden[x]
+        print(hidden.shape)
         hidden2 = F.relu(hidden)
-  
+        print(hidden2.shape)
         return self.e2s(hidden2, self.embedding, batch), hidden2, edge_index
 
     def loss_nodes(self, h, edges, device):
