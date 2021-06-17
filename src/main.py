@@ -55,7 +55,7 @@ def main():
     all_edges = []
     for i, batch in enumerate(train_loader):
         all_edges.append(batch.edge_index)
-    full_graph_edges = torch.cat(all_edges, dim=1)
+    full_graph_edges = torch.cat(all_edges, dim=1).to(device)
     
     log_dir = cur_dir + '/../log/' + str(opt.dataset) + '/' + str(opt)
     if not os.path.exists(log_dir):
