@@ -9,7 +9,7 @@ import numpy as np
 import logging
 from utils import *
 
-def forward(ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer=None, train_flag=True):
+def forward(full_graph_edges, ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer=None, train_flag=True):
     if train_flag:
         model.train()
     else:
@@ -22,7 +22,7 @@ def forward(ssl, para, model, loader, device, writer, epoch, top_k=20, optimizer
     for i, batch in enumerate(loader):
         if train_flag:
             optimizer.zero_grad()
-        scores, h, edges = model(batch.to(device))
+        scores, h, edges = model(full_graph_edges, batch.to(device))
         targets = batch.y - 1
         loss = model.loss_function(scores, targets)
         
