@@ -70,7 +70,7 @@ def main():
     else:
         n_node = 309
 
-    model = GNNModel(hidden_size=opt.hidden_size, n_node=n_node, gnn_model=opt.gnn_model).to(device)
+    model = GNNModel(full_graph_edges, hidden_size=opt.hidden_size, n_node=n_node, gnn_model=opt.gnn_model).to(device)
     
     if opt.ssl_task is not None:
         ssl = eval(opt.ssl_task)(nhid=opt.hidden_size, device=device)
@@ -87,7 +87,7 @@ def main():
         scheduler.step()
         forward(ssl, opt, model, train_loader, device, writer, epoch, top_k=opt.top_k, optimizer=optimizer, train_flag=True)
         with torch.no_grad():
-            forward(full_graph_edges, ssl, opt, model, test_loader, device, writer, epoch, top_k=opt.top_k, train_flag=False)
+            forward(ssl, opt, model, test_loader, device, writer, epoch, top_k=opt.top_k, train_flag=False)
 
 
 if __name__ == '__main__':
