@@ -51,7 +51,12 @@ def main():
     train_loader = DataLoader(train_dataset, batch_size=opt.batch_size, shuffle=True)
     test_dataset = MultiSessionsGraph(cur_dir + '/../datasets/' + opt.dataset, phrase='test')
     test_loader = DataLoader(test_dataset, batch_size=opt.batch_size, shuffle=False)
-
+    
+    all_edges = []
+    for i, batch in enumerate(train_loader):
+        all_edges.append(batch.edge_index)
+    full_graph_edges = torch.cat(all_edges, dim=1).to(device)
+    
     log_dir = cur_dir + '/../log/' + str(opt.dataset) + '/' + str(opt)
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
@@ -65,7 +70,7 @@ def main():
     else:
         n_node = 309
 
-    model = GNNModel(hidden_size=opt.hidden_size, n_node=n_node, gnn_model=opt.gnn_model).to(device)
+    model = GNNModel(full_graph_edges, hidden_size=opt.hidden_size, n_node=n_node, gnn_model=opt.gnn_model).to(device)
     
     if opt.ssl_task is not None:
         ssl = eval(opt.ssl_task)(nhid=opt.hidden_size, device=device)
